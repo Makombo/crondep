@@ -11,25 +11,28 @@ function error_exit {
 }
 
 #Conventions
-the_post_receive_hook=$my_repo/hooks/post-receive
-the_pre_receive_hook=$my_repo/hooks/pre-receive
-the_puller=$my_repo/puller/pull
-the_log=$my_repo/puller/pull.log
-
-#my git command
-my_git="$(which git) --work-tree=$my_worktree --git-dir=$my_repo" 
+the_post_receive_hook=$my_gitdir/hooks/post-receive
+the_pre_receive_hook=$my_gitdir/hooks/pre-receive
+the_puller=$my_gitdir/puller/pull
+the_log=$my_gitdir/puller/pull.log
 
 #Script
-echo "...  backing up worktree $my_worktree"
-if [[ ! -L $my_worktree ]]; then
-  mv $my_worktree $my_worktree.backup
-else
+echo "...  check if $my_worktree is symlink"
+if [[ -L $my_worktree ]]; then
   error_exit " ... Working tree is a symlink!"
 fi
 
-echo "... doing git init at $my_repo"
-  git init --bare $my_repo
-  
+echo "... doing git init at $my_gitdir"
+ $(which git) init --bare $my_gitdir
+my_git="$(which git) --work-tree=$my_worktree --git-dir=$my_gitdir" 
+
+echo "...  backing up worktree $my_worktree to original_backup branch at $my_origin"
+if [ -d "$my_worktree" ]; then
+	$my_git add .
+	$my_git commit -m "Initial Commit for backup of original"
+	$my_git push -u $my_origin original_backup 
+fi
+
 echo "... doing git pull from $my_origin"
   $my_git pull $my_origin master 
   
@@ -45,10 +48,10 @@ $my_git clean -fd
 $my_git reset --hard HEAD
 EOF
 
-mkdir -p $my_repo/puller
+mkdir -p $my_gitdir/puller
 cat << EOF > $the_puller
 #!/bin/sh
-cd $my_repo 
+cd $my_gitdir 
 $my_git pull $my_origin master 
 EOF
 
