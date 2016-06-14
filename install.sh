@@ -41,7 +41,7 @@ EOF
 
 cat << EOF > $the_pre_receive_hook
 #!/bin/sh
-$my_gitclean -fd
+$my_git clean -fd
 $my_git reset --hard HEAD
 EOF
 
@@ -56,8 +56,8 @@ echo "... setting permissions of $the_post_receive_hook, $the_pre_receive_hook, 
 chmod +x $the_post_receive_hook $the_pre_receive_hook $the_puller
 
 echo "... setting cron job"
-(crontab -l ; echo "* * * * * $the_puller >> $the_log 2>&1") | sort - | uniq - | crontab -
-(crontab -l ; echo "0 * * * * rm $the_log 2>&1") | sort - | uniq - | crontab -
+(crontab -l ; echo "* * * * * $the_puller > $the_log 2>&1") | sort - | uniq - | crontab -
+#(crontab -l ; echo "0 * * * * rm $the_log 2>&1") | sort - | uniq - | crontab -
 
 echo ""
 echo "===== Installation Complete !! ====="
