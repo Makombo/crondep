@@ -1,7 +1,6 @@
 #!/bin/bash
 
 cd $(dirname "$0")
-
 source config.sh
 
 function error_exit {
