@@ -1,4 +1,4 @@
 #!/bin/bash
 crontab -r
-rm -rf ~/ec2site.git
-rm -rf "~/htdocs/*"
+rm -rf $my_gitdir
+rm -rf $my_worktree
