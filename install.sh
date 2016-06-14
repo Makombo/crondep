@@ -1,7 +1,8 @@
 #!/bin/bash
 
+cd $(dirname "$0")
 
-source $(dirname "$0")/config.sh
+source config.sh
 
 function error_exit {
     echo "$1" >&2   ## Send message to stderr. Exclude >&2 if you don't want it that way.
