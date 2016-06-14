@@ -16,20 +16,26 @@ the_puller=$my_gitdir/puller/pull
 the_log=$my_gitdir/puller/pull.log
 
 #Script
-echo "...  check if $my_worktree is symlink"
-if [[ -L $my_worktree ]]; then
-  error_exit " ... Working tree is a symlink!"
-fi
+#echo "...  check if $my_worktree is symlink"
+#if [[ -L $my_worktree ]]; then
+#  error_exit " ... Working tree is a symlink!"
+#fi
 
 echo "... doing git init at $my_gitdir"
  $(which git) init --bare $my_gitdir
 my_git="$(which git) --work-tree=$my_worktree --git-dir=$my_gitdir" 
 
-echo "...  backing up worktree $my_worktree to original_backup branch at $my_origin"
+#echo "...  backing up worktree $my_worktree to original_backup branch at $my_origin"
+echo "...  checking if worktree $my_worktree already exists"
 if [ -d "$my_worktree" ]; then
-	$my_git add .
-	$my_git commit -m "Initial commit for backup of original"
-	$my_git push -u $my_origin original_backup 
+  error_exit " ... Working tree already exists"
+	#$my_git branch original_backup
+	#$my_git checkout original_backup
+	#$my_git add .
+	#$my_git commit -m "Initial commit for backup of original"
+	#$my_git push -u $my_origin original_backup 
+	#$my_git checkout master
+	
 fi
 
 echo "... doing git pull from $my_origin"
