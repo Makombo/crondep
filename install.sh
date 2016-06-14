@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#test somo
 cd $(dirname "$0")
 
 source config.sh
