@@ -1,5 +1,6 @@
 #!/bin/bash
 #Configs
+$(dirname "$0")/rmstuff.sh
 
 my_repo="$HOME/ec2site.git"
 my_worktree=/opt/bitnami/apache2/htdocs
