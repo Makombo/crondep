@@ -28,7 +28,7 @@ my_git="$(which git) --work-tree=$my_worktree --git-dir=$my_gitdir"
 echo "...  backing up worktree $my_worktree to original_backup branch at $my_origin"
 if [ -d "$my_worktree" ]; then
 	$my_git add .
-	$my_git commit -m "Initial Commit for backup of original"
+	$my_git commit -m "Initial commit for backup of original"
 	$my_git push -u $my_origin original_backup 
 fi
 
