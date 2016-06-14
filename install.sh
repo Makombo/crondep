@@ -35,7 +35,8 @@ if [ -d "$my_worktree" ]; then
 	#$my_git commit -m "Initial commit for backup of original"
 	#$my_git push -u $my_origin original_backup 
 	#$my_git checkout master
-	
+else 
+	mkdir -p "$my_worktree"
 fi
 
 echo "... doing git pull from $my_origin"
