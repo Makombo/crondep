@@ -1,10 +1,12 @@
 #!/bin/sh
 
 #Configs
+
 	the_key=$HOME/.ssh/id_rsa
 
 	ssh-keygen -t rsa -N "" -f $the_key #needs more enter buttons
 	
+	eval `ssh-agent -s`	
 	ssh-add $the_key
 	cat $the_key.pub
 	#TODO: RESTfully add key to $my_origin.pub
