@@ -32,7 +32,8 @@ else
 fi
 
 echo "... doing git pull from $my_origin"
-$my_git pull $my_origin master 
+$my_git pull $my_origin $my_branch 
+
   
 
 cat > $the_post_receive_hook << EOF
@@ -50,7 +51,7 @@ mkdir -p $my_gitdir/puller
 cat > $the_puller << EOF
 #!/bin/sh
 cd $my_gitdir 
-$my_git pull $my_origin master 
+$my_git pull $my_origin $my_branch 
 EOF
 
 echo "... setting permissions of $the_post_receive_hook, $the_pre_receive_hook, $the_puller"
