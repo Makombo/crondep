@@ -32,7 +32,6 @@ else
 fi
 
 echo "... doing git pull from $my_origin"
-
 $my_git pull $my_origin $my_branch 
 
 cat > $the_post_receive_hook << EOF
