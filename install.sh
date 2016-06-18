@@ -36,7 +36,7 @@ $my_git pull $my_origin $my_branch
 
 cat > $the_post_receive_hook << EOF
 #!/bin/sh
-$my_git checkout -f
+$my_git checkout -f $my_branch 
 EOF
 
 cat > $the_pre_receive_hook << EOF
